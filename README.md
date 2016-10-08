@@ -21,7 +21,8 @@ On the target machine you need
   - docker build -t armhf-owncloud:9.1-apache owncloud/9.1/apache
 
 Then run
-* **OWNCLOUD_DOMAIN=your.domain.com docker-compose up -d**
+* Prepare docker-compose.override.yml where you override VIRTUAL_HOST and CERT_NAME variables
+* **docker-compose up -d**
 
 Depending on your configuration you may need to add following to `/d/nginx/conf.d/_http`
 > server_names_hash_bucket_size  64;

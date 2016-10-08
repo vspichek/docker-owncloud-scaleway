@@ -31,7 +31,7 @@ services:
     image: armhf-owncloud:9.1-apache
     container_name: owncloud
     environment:
-      - VIRTUAL_HOST=${OWNCLOUD_DOMAIN}
+      - VIRTUAL_HOST=your.domain.com
       - CERT_NAME=shared
     volumes:
       - /d/oc/apps:/var/www/html/apps
