@@ -6,9 +6,9 @@ services:
     image: armhfbuild/nginx
     container_name: nginx
     volumes:
-      - /d/nginx/vhost.d:/etc/nginx/vhost.d:ro
-      - /d/nginx/conf.d:/etc/nginx/conf.d
-      - /d/nginx/certs:/etc/nginx/certs:ro
+      - nginx_vhosts:/etc/nginx/vhost.d:ro
+      - nginx_conf:/etc/nginx/conf.d:ro
+      - nginx_certs:/etc/nginx/certs:ro
     ports:
       - 80:80
       - 443:443
@@ -19,14 +19,14 @@ services:
     image: armhfbuild/docker-gen
     container_name: docker-gen-nginx
     volumes:
-      - /d/docker-gen/templates:/etc/docker-gen/templates:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/docker-gen/templates
     volumes_from: 
-      - nginx
+      - nginx:rw
     network_mode: none
     command: "-notify-sighup nginx -watch -only-exposed /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf"
     restart: unless-stopped
-  
+
   owncloud:
     image: armhf-owncloud:9.1-apache
     container_name: owncloud
@@ -34,9 +34,16 @@ services:
       - VIRTUAL_HOST=your.domain.com
       - CERT_NAME=shared
     volumes:
-      - /d/oc/apps:/var/www/html/apps
-      - /d/oc/data:/var/www/html/data
-      - /d/oc/config:/var/www/html/config
+      - /var/www/html/apps
+      - /var/www/html/data
+      - /var/www/html/config
     network_mode: bridge
     restart: unless-stopped
 
+volumes:
+  nginx_vhosts:
+    external: yes
+  nginx_conf:
+    external: yes
+  nginx_certs:
+    external: yes
