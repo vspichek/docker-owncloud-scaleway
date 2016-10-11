@@ -4,8 +4,6 @@ An example of setting up owncloud server on a Scaleway ARMv7 machine
 This recipe uses `owncloud` image to provide owncloud functionality, `nginx` image to multiplex http connections and `docker-gen` image to watch docker for images that expose http <br/>
 Performance (sqlite vs MySQL/Postgres, (mem)cache, extra apache server behind nginx) and security are beyond scope of this example
 
- and security and 
-
 On the target machine you need
 * Prepare docker-compose.override.yml where you override VIRTUAL_HOST and CERT_NAME variables and define volumes)
 * put your certificate named **shared.crt** and **shared.key** into `nginx_certs` (with optionally multiple SANs thus **shared**). [WoSign](https://buy.wosign.com/free/) issues free certificates with up to 20 SANs
@@ -23,3 +21,6 @@ Depending on your configuration you may need to add following to `nginx_conf`
 
 This uses images available in Docker Hub<br/>
 It's your responsibility to build and maintain set images that you can trust. Modify docker-compose.yml correspondingly 
+
+[//]: <> (chown -R www-data:www-data /d/oc/data/vspichek/files/Video/)
+[//]: <> (docker exec -u www-data owncloud php occ  files:scan --all)
