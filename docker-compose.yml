@@ -20,7 +20,7 @@ services:
     container_name: docker-gen-nginx
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /etc/docker-gen/templates
+      - templates:/etc/docker-gen/templates
     volumes_from: 
       - nginx:rw
     network_mode: none
@@ -46,4 +46,6 @@ volumes:
   nginx_conf:
     external: yes
   nginx_certs:
+    external: yes
+  templates:
     external: yes
